@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import br.com.juaanhs.notas.R;
 import br.com.juaanhs.notas.dao.NotaDAO;
 import br.com.juaanhs.notas.model.Nota;
 import br.com.juaanhs.notas.ui.recyclerview.adapter.ListaNotasAdapterRecyclerView;
+import br.com.juaanhs.notas.ui.recyclerview.adapter.OnItemClickListener;
 
 import static br.com.juaanhs.notas.ui.activity.NotaActivityConstantes.KEY_NOTA;
 import static br.com.juaanhs.notas.ui.activity.NotaActivityConstantes.REQUEST_CODE_INSERE_NOTA;
@@ -93,5 +95,12 @@ public class ListaNotasActivity extends AppCompatActivity {
     private void configuraAdapter(List<Nota> todasNotas, RecyclerView listaNotas) {
         adapter = new ListaNotasAdapterRecyclerView(getApplicationContext(), todasNotas);
         listaNotas.setAdapter(adapter);
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick() {
+                Toast.makeText(ListaNotasActivity.this, "Clicado na activity",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -17,10 +17,15 @@ public class ListaNotasAdapterRecyclerView extends RecyclerView.Adapter<ListaNot
 
     private final List<Nota> notas;
     private final Context context;
+    private OnItemClickListener onItemClickListener;
 
     public ListaNotasAdapterRecyclerView(Context context, List<Nota> notas) {
         this.context = context;
         this.notas = notas;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -53,6 +58,12 @@ public class ListaNotasAdapterRecyclerView extends RecyclerView.Adapter<ListaNot
             super(itemView);
             titulo = itemView.findViewById(R.id.item_nota_titulo);
             descricao = itemView.findViewById(R.id.item_nota_descricao);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick();
+                }
+            });
         }
 
         public void vincula(Nota nota) {
