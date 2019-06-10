@@ -11,6 +11,7 @@ import java.util.List;
 
 import br.com.juaanhs.notas.R;
 import br.com.juaanhs.notas.model.Nota;
+import br.com.juaanhs.notas.ui.recyclerview.adapter.listener.OnItemClickListener;
 
 public class ListaNotasAdapterRecyclerView extends RecyclerView.Adapter<ListaNotasAdapterRecyclerView.NotaViewHolder> {
 
@@ -46,13 +47,17 @@ public class ListaNotasAdapterRecyclerView extends RecyclerView.Adapter<ListaNot
         return notas.size();
     }
 
-
+    public void altera(int posicao, Nota nota) {
+        notas.set(posicao, nota);
+        notifyDataSetChanged();
+    }
 
 
     class NotaViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView descricao;
         private final TextView titulo;
+        private Nota nota;
 
         public NotaViewHolder(View itemView) {
             super(itemView);
@@ -61,12 +66,13 @@ public class ListaNotasAdapterRecyclerView extends RecyclerView.Adapter<ListaNot
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClickListener.onItemClick();
+                    onItemClickListener.onItemClick(nota, getAdapterPosition());
                 }
             });
         }
 
         public void vincula(Nota nota) {
+            this.nota = nota;
             preencheCampos(nota);
         }
 
