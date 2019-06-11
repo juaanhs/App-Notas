@@ -1,10 +1,10 @@
 package br.com.juaanhs.notas.ui.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +16,7 @@ import br.com.juaanhs.notas.dao.NotaDAO;
 import br.com.juaanhs.notas.model.Nota;
 import br.com.juaanhs.notas.ui.recyclerview.adapter.ListaNotasAdapterRecyclerView;
 import br.com.juaanhs.notas.ui.recyclerview.adapter.listener.OnItemClickListener;
+import br.com.juaanhs.notas.ui.recyclerview.helper.callback.NotaItemTouchHelperCallback;
 
 import static br.com.juaanhs.notas.ui.activity.NotaActivityConstantes.KEY_NOTA;
 import static br.com.juaanhs.notas.ui.activity.NotaActivityConstantes.KEY_POSITION;
@@ -115,8 +116,10 @@ public class ListaNotasActivity extends AppCompatActivity {
     }
 
     private void configuraRecyclerView(List<Nota> todasNotas) {
-        RecyclerView ListaNotas = findViewById(R.id.lista_notas_recyclerview);
-        configuraAdapter(todasNotas, ListaNotas);
+        RecyclerView listaNotas = findViewById(R.id.lista_notas_recyclerview);
+        configuraAdapter(todasNotas, listaNotas);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new NotaItemTouchHelperCallback(adapter));
+        itemTouchHelper.attachToRecyclerView(listaNotas);
     }
 
     private void configuraAdapter(List<Nota> todasNotas, RecyclerView listaNotas) {
