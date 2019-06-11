@@ -16,6 +16,8 @@ import static br.com.juaanhs.notas.ui.activity.NotaActivityConstantes.POSITION_I
 
 public class FormularioNotaActivity extends AppCompatActivity {
 
+    public static final String TITULO_APPBAR_INSERE = "Inserir nota";
+    public static final String TITULO_APPBAR_ALTERA = "Alterar Nota";
     private int posicaoRecebida = POSITION_INVALID;
     private TextView titulo;
     private TextView descricao;
@@ -24,10 +26,13 @@ public class FormularioNotaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_nota);
+        setTitle(TITULO_APPBAR_INSERE);
 
         inicializaCampos();
+
         Intent dadosRecebidos = getIntent();
         if(dadosRecebidos.hasExtra(KEY_NOTA)){
+            setTitle(TITULO_APPBAR_ALTERA);
             Nota notaRecebida = (Nota) dadosRecebidos
                     .getSerializableExtra(KEY_NOTA);
             posicaoRecebida = dadosRecebidos.getIntExtra(KEY_POSITION, POSITION_INVALID);

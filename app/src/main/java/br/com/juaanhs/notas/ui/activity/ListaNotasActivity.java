@@ -27,12 +27,14 @@ import static br.com.juaanhs.notas.ui.activity.NotaActivityConstantes.REQUEST_CO
 
 public class ListaNotasActivity extends AppCompatActivity {
 
+    public static final String TITULO_APPBAR = "Notas";
     private ListaNotasAdapterRecyclerView adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_notas);
+        setTitle(TITULO_APPBAR);
 
         List<Nota> todasNotas = getTodasNotas();
 
@@ -102,7 +104,7 @@ public class ListaNotasActivity extends AppCompatActivity {
 
     private boolean ehResultadoAlteraNota(int requestCode, Intent data) {
         return requestCode == REQUEST_CODE_ALTERA_NOTA &&
-                data.hasExtra(KEY_NOTA);
+                verificaNota(data);
     }
 
     private void adicionaNota(Nota nota) {
@@ -112,7 +114,11 @@ public class ListaNotasActivity extends AppCompatActivity {
 
     private boolean ehResultadoInsereNota(int requestCode, Intent data) {
         return requestCode == REQUEST_CODE_INSERE_NOTA &&
-                data.hasExtra(KEY_NOTA);
+                verificaNota(data);
+    }
+
+    private boolean verificaNota(Intent data) {
+        return data != null && data.hasExtra(KEY_NOTA);
     }
 
     private void configuraRecyclerView(List<Nota> todasNotas) {
