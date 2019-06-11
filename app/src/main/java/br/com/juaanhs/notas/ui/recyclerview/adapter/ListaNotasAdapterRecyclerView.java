@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.List;
 
 import br.com.juaanhs.notas.R;
@@ -54,6 +55,11 @@ public class ListaNotasAdapterRecyclerView extends RecyclerView.Adapter<ListaNot
 
     public void remove(int posicao) {
         notas.remove(posicao);
+        notifyDataSetChanged();
+    }
+
+    public void troca(int posicaoInicial, int posicaoFinal) {
+        Collections.swap(notas, posicaoInicial, posicaoFinal);
         notifyDataSetChanged();
     }
 
